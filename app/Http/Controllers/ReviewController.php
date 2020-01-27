@@ -3,19 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Review;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
 {
     public function index(){
         $reviews = Review::where('status', 1)->orderBy('created_at', 'DESC')->paginate(9);
-    	return view('index', compact('reviews'));
+        
+        $users = DB::table('users')->get();
+    	return view('index', compact('reviews','users'));
+    	
     }
     
     public function show($id){
         $review = Review::where('id', $id)->where('status', 1)->first();
+        
+        $review_user_id = Review::where('id', $id)->select('user_id')->first();
+        /*dd($review_user_id->user_id);*/
+        $num = $review_user_id->user_id;
+        /*dd($num);*/
+        
+        $user = User::where('id',$num)->select('name')->first();
+        /*dd($user->name);*/
+        
 
-        return view('show', compact('review'));
+        return view('show', compact('review','user'));
     }
     
     public function create(){

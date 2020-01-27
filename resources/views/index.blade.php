@@ -18,6 +18,11 @@
                 <p class='description'>
                     {{ $review->body }}
                 </p>
+                @foreach($users as $user)
+                    @if($review->user_id == $user->id)
+                    <p>投稿ユーザー　{{ $user->name }}</p>
+                    @endif
+                @endforeach
                 <a href="{{ route('show', ['id' => $review->id ]) }}"class='btn btn-secondary detail-btn'>詳細を読む</a>
             </div>
         </div>
