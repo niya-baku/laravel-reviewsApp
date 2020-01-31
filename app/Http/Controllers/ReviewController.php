@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Review;
 use App\User;
+use App\Likes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,6 +14,9 @@ class ReviewController extends Controller
         $reviews = Review::where('status', 1)->orderBy('created_at', 'DESC')->paginate(9);
         
         $users = DB::table('users')->get();
+        
+        /*$likes = $users = DB::table('reviews')->leftJoin('users', 'reviews.user_id', '=', 'users.id')->leftJoin('likes', 'users.id', '=', 'likes.user_id')->get();
+        /*dd($likes);*/
     	return view('index', compact('reviews','users'));
     	
     }
@@ -48,7 +52,7 @@ class ReviewController extends Controller
         
         if ($request->hasFile('image')) {
             $request->file('image')->store('/public/images');
-            $data = ['user_id' => \Auth::id(), 'title' => $post['title'], 'body' => $post['body'], 'image' => $request->file('image')->hashName()];
+            $data = ['user_id' => \Auth::id(), 'title' => $post['title'], 'body' => $post['body'], 'url' => $post['url'], 'image' => $request->file('image')->hashName()];
         
         } else {
           $data = ['user_id' => \Auth::id(), 'title' => $post['title'], 'body' => $post['body']];
@@ -58,4 +62,5 @@ class ReviewController extends Controller
 
         return redirect('/')->with('flash_message', '投稿が完了しました');
     }
+    
 }

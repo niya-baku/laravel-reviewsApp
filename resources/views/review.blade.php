@@ -26,8 +26,12 @@
                 <textarea class='description form-control' name='body' placeholder='本文を入力'></textarea>
               </div>
               <div class="form-group">
-                <label for="file1">本のサムネイル</label>
+              <label for="file1">本のサムネイル</label>
                 <input type="file" id="file1" name='image' class="form-control-file">
+              </div>
+              <div class="form-group">
+              <label>紹介URL</label>
+                <input type="text" class="form-control" name='url' placeholder='商品のURLを入力'>
               </div>
               <input type='submit' class='btn btn-primary' value='レビューを登録'>
             </div>

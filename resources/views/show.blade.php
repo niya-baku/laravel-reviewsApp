@@ -10,11 +10,13 @@
   <div class="card">
     <div class="card-body d-flex">
       <section class='review-main'>
-        <h1 class='h1'>{{ $user->name }}</h2>
+        <h2 class='h2'>ユーザー名：{{ $user->name}}</h2>
         <h2 class='h2'>本のタイトル</h2>
         <p class='h2 mb20'>{{ $review->title }}</p>
         <h2 class='h2'>レビュー本文</h2>
         <p>{{ $review->body }}</p>
+        <h3 class='h2'>商品紹介URL</h2>
+        <a href= "{{ ($review->url)}}" target="_blank">{{ ($review->url)}}</a>
       </section>  
       <aside class='review-image'>
 @if(!empty($review->image))
