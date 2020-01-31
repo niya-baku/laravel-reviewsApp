@@ -15,8 +15,10 @@
         <p class='h2 mb20'>{{ $review->title }}</p>
         <h2 class='h2'>レビュー本文</h2>
         <p>{{ $review->body }}</p>
+        @if(!empty($review->url))
         <h3 class='h2'>商品紹介URL</h2>
         <a href= "{{ ($review->url)}}" target="_blank">{{ ($review->url)}}</a>
+        @endif
       </section>  
       <aside class='review-image'>
 @if(!empty($review->image))
