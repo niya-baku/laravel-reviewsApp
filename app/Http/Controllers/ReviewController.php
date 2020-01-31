@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Review;
+use App\Comment;
 use App\User;
-use App\Likes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,17 +23,25 @@ class ReviewController extends Controller
     
     public function show($id){
         $review = Review::where('id', $id)->where('status', 1)->first();
+        /*dd($review);*/
         
         $review_user_id = Review::where('id', $id)->select('user_id')->first();
-        /*dd($review_user_id->user_id);*/
+        //($review_user_id);
+        //dd($review_user_id->user_id);
         $num = $review_user_id->user_id;
         /*dd($num);*/
         
         $user = User::where('id',$num)->select('name')->first();
         /*dd($user->name);*/
         
+        $comment_id = Review::where('id', $id)->where('status', 1)->first()->id;
+        //dd($comment_id);
+        
+        $comments = Comment::where('review_id', $comment_id)->get();
+        //dd($comments);
+        
 
-        return view('show', compact('review','user'));
+        return view('show', compact('review','user','comments'));
     }
     
     public function create(){
@@ -61,6 +69,34 @@ class ReviewController extends Controller
         Review::insert($data);
 
         return redirect('/')->with('flash_message', '投稿が完了しました');
+    }
+    
+    public function comment(Request $request)
+    {
+        $post = $request->all();
+        //dd($post);
+        
+        
+        
+        $validatedData = $request->validate([
+        'description' => 'required|max:255',
+        ]);
+        
+        $url = url()->previous();
+        $keys = parse_url($url);
+        $path = explode("/", $keys['path']);
+        $last_num = end($path);
+        
+        $reviews_id = Review::where('id', $last_num)->where('status', 1)->first();
+
+
+        $review_id = $reviews_id->id;
+        
+        $data = ['review_id' => $review_id, 'description' => $post['description']];
+        
+        Comment::insert($data);
+
+        return redirect('/')->with('flash_message', 'コメントが送信されました');
     }
     
 }

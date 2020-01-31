@@ -19,6 +19,29 @@
         <h3 class='h2'>商品紹介URL</h2>
         <a href= "{{ ($review->url)}}" target="_blank">{{ ($review->url)}}</a>
         @endif
+      
+      
+        @foreach($comments as $comment)
+          <p>コメント：{{ $comment->description}}</p>
+        @endforeach
+      
+        
+      <div class="row justify-content-center container">
+        <div class="col-md-10">
+          <form method='POST' action="{{ route('comment') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="card">
+                <div class="card-body">
+                  <div class="form-group">
+                  <label>コメントフォーム</label>
+                    <textarea class='description form-control' name='description' placeholder='コメントを入力'></textarea>
+                  </div>
+                  <input type='submit' class='btn btn-primary' value='コメントを送信する'>
+                </div>
+            </div>
+          </form>
+        </div>
+    </div>
       </section>  
       <aside class='review-image'>
 @if(!empty($review->image))
