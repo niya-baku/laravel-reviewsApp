@@ -1,4 +1,6 @@
 <h1>Laravel6とAWSを使用したブックレビューサイト</h1>
+<h2>アプリケーションURL</h2>
+<p>https://laravel-review-app.tk</p>
 
 <h2>機能概要</h2>
 <ul>
