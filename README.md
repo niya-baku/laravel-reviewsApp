@@ -29,4 +29,6 @@
 	<li>ドメイン freenom使用</li>
 </ul>
 
+![20200215004702](https://user-images.githubusercontent.com/40636920/74545722-bb9f0c80-4f8c-11ea-97ca-5e2fe89f7330.png)
+
 
